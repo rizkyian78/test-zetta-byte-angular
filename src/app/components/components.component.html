@@ -1,0 +1,62 @@
+<div style="display: flex; justify-content: space-between">
+  <p><i class="fas fa-user-plus"></i> Add Staff For Company</p>
+  <button (click)="onClick()" style="background-color: transparent" mat-flat-button target="_blank">X</button>
+</div>
+<mat-divider></mat-divider>
+
+<form class="example-form" [formGroup]="myForm">
+  <div style="display: flex; margin-top: 15px">
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" name="email" required ngModel #email="ngModel" placeholder="e.g andi@mail.com" />
+    </mat-form-field>
+    <div [hidden]="!email.errors?.pattern" style="font-size: 11px; color: red; margin-top: 40px; position: absolute">Invalid Email</div>
+    <button mat-raised-button (click)="checkEmail(email.value)" disabled="{{ email.value !== '' && email.valid && !email.errors?.pattern ? false : true }}" style="margin-left: 30px; width: 300px; height: 40px">Check Email Availability</button>
+    <div [hidden]="!isEmailValid" style="margin-left: 30px; margin-top: 15px">
+      <i class="fas fa-check" style="color: green"></i>
+      Email is Available
+    </div>
+  </div>
+  <br />
+  <div style="display: inline">
+    Civility
+    <mat-radio-group aria-label="Select an option">
+      <mat-radio-button name="civility" #civility value="MR">Mr</mat-radio-button>
+      <mat-radio-button name="civility" #civility style="margin-left: 5px" value="MS">Ms</mat-radio-button>
+    </mat-radio-group>
+    <mat-form-field style="margin-left: 20px" class="example-full-width">
+      <mat-label>First Name</mat-label>
+      <input matInput type="text" required ngModel name="first_name" #first_name="ngModel" placeholder="First Name" />
+    </mat-form-field>
+    <mat-form-field style="margin-left: 20px" class="example-full-width">
+      <mat-label>Last Name</mat-label>
+      <input matInput type="text" ngModel required name="last_name" #last_name="ngModel" placeholder="Last Name" />
+    </mat-form-field>
+    <mat-form-field style="margin-left: 20px" class="example-full-width">
+      <mat-label>User Type</mat-label>
+      <select name="user_type" #user_type ngModel="HR" matNativeControl required>
+        <option value="HR">HR</option>
+        <option value="Mentor">Mentor</option>
+      </select>
+    </mat-form-field>
+  </div>
+
+  <div style="display: flex; justify-content: space-evenly">
+    <button (click)="onClick()" mat-raised-button style="background-color: red; color: wheat">Cancel</button>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="
+        sendData({
+          civility: civility.value,
+          user_type: user_type.value,
+          email: email.value,
+          first_name: first_name.value,
+          last_name: last_name.value
+        })
+      "
+    >
+      Submit
+    </button>
+  </div>
+</form>
