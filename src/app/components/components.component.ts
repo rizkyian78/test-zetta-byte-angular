@@ -47,6 +47,7 @@ export class ModalComponent implements OnInit {
     }
   }
   public sendData(value: any) {
+    console.log(value);
     const newData = {
       id: data.length + 1,
       email: value.email,
@@ -60,7 +61,7 @@ export class ModalComponent implements OnInit {
       user_status: 'pending',
       count_document: 15,
     };
+    console.log(newData);
     this.myService.myMethod(newData);
-    this.dialogRef.close('Pizza!');
   }
 }
