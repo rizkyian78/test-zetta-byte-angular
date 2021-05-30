@@ -63,5 +63,6 @@ export class ModalComponent implements OnInit {
     };
     console.log(newData);
     this.myService.myMethod(newData);
+    this.dialogRef.close('Closed');
   }
 }
